@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-function-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-function-1
+  template:
+    metadata:
+      labels:
+        app: azure-function-1
+    spec:
+      containers:
+      - name: azure-function-1
+        image: mcr.microsoft.com/azure-functions/python:3.0-python3.8
+        env:
+        - name: AzureWebJobsStorage
+          value: "DefaultEndpointsProtocol=https;AccountName={};AccountKey={};EndpointSuffix=core.windows.net"
+        - name: AzureWebJobsDashboard
+          value: "DefaultEndpointsProtocol=https;AccountName={};AccountKey={};EndpointSuffix=core.windows.net"
+        volumeMounts:
+        - name: function-code
+          mountPath: /home/site/wwwroot
+      volumes:
+      - name: function-code
+        configMap:
+          name: function-code
