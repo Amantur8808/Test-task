@@ -15,3 +15,8 @@ Then:
 And the third step:
   I need to create another Azure Function in Python, which will be responsible for loading a message from the queue and running a container service to print "Hello World".
     - Example of such code you can see in the second.py file.
+
+Also i need to:
+ - Create a Kubernetes Service and Ingress for deployment, to expose this to the outside world.
+ - Create a Kubernetes ConfigMap, to store the source code for both Azure Functions.
+ - Create a Kubernetes CronJob, to schedule the first Azure function to run every minute.
